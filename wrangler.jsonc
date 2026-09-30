@@ -1,0 +1,42 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "main": "worker.ts",
+  "name": "crosscut",
+  "compatibility_date": "2024-12-30",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "crosscut"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "ROOMS",
+      "id": "df0dd153f7bc434c83b37dcc4730180b",
+      "preview_id": "4ddc66e91fb1424f930e6a71e6e0b0f0"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "ROOM_HUB",
+        "class_name": "RoomHub"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1-room-hub",
+      "new_sqlite_classes": ["RoomHub"]
+    }
+  ],
+  "images": {
+    "binding": "IMAGES"
+  }
+}
